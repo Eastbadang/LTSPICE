@@ -1,19 +1,13 @@
-# This is a sample Python script.
+import os
+from google import genai
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# Secrets에 등록된 환경 변수에서 안전하게 키를 읽어옵니다.
+api_key = os.environ.get("GEMINI_API_KEY")
+client = genai.Client(api_key=api_key)
 
+response = client.models.generate_content(
+    model="gemini-2.5-flash",
+    contents="GitHub Actions에서 보낸 테스트 메시지입니다. 짧게 인사해 줘.",
+)
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('LTSPICE 1234567890')
-
-
-
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+print(response.text)
